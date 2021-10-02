@@ -8,8 +8,8 @@ import (
 func GetAllCoupons() (interface{}, error) {
 	// variable declarations
 	var (
-		products []views.Coupon
-		err      error
+		coupons []views.Coupon
+		err     error
 	)
 	// get current database connection
 	db := database.GetDB()
@@ -38,14 +38,14 @@ func GetAllCoupons() (interface{}, error) {
 	// loop and struct scan
 	for rows.Next() {
 		var (
-			p views.Coupon
+			c views.Coupon
 		)
-		err = rows.Scan(&p.CouponID, &p.Name, &p.Category, &p.ImageURL, &p.StartDate, &p.EndDate, &p.Reward)
+		err = rows.Scan(&c.CouponID, &c.Name, &c.Category, &c.ImageURL, &c.StartDate, &c.EndDate, &c.Reward)
 		if err != nil {
 			return nil, err
 		}
-		products = append(products, p)
+		coupons = append(coupons, c)
 	}
 
-	return products, err
+	return coupons, err
 }

@@ -12,6 +12,6 @@ func Register() *mux.Router {
 	// routes http
 	// router.HandleFunc("/ping", ping).Methods(http.MethodGet)
 	router.HandleFunc("/coupons", GetAllCoupons).Methods(http.MethodGet)
-	// router.HandleFunc("/product/{id}", handlers.GetProduct).Methods(http.MethodGet)
+	router.HandleFunc("/coupon/{id}", GetCouponByUserID).Methods(http.MethodGet)
 	return router
 }
