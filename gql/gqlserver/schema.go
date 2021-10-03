@@ -38,6 +38,9 @@ func (s *SchemaWrapper) Init() error {
 						"amount": &graphql.ArgumentConfig{
 							Type: graphql.Float,
 						},
+						"image_url": &graphql.ArgumentConfig{
+							Type: graphql.String,
+						},
 						"usertier": &graphql.ArgumentConfig{
 							Type: graphql.EnumValueType,
 						},
