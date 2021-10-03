@@ -3,8 +3,8 @@ package gqlserver
 import "github.com/graphql-go/graphql"
 
 type SchemaWrapper struct {
-	couponResolver	*Resolver
-	Schema 			graphql.Schema
+	couponResolver *Resolver
+	Schema         graphql.Schema
 }
 
 func NewSchemaWrapper() *SchemaWrapper {
@@ -18,12 +18,33 @@ func (s *SchemaWrapper) WithCouponResolver(coupon *Resolver) *SchemaWrapper {
 
 func (s *SchemaWrapper) Init() error {
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
+		Query: graphql.NewObject(graphql.ObjectConfig{
+			Name:        "CouponsGetter",
+			Description: "All query related to getting coupon data",
+			Fields: graphql.Fields{
+				"CouponUser": &graphql.Field{
+					Type:        CouponType,
+					Description: "Get coupon by user ID",
+					Args: graphql.FieldConfigArgument{
+						"coupon_id": &graphql.ArgumentConfig{
+							Type: graphql.NewNonNull(graphql.Int),
+						},
+					},
+					Resolve: s.couponResolver.GetCouponByUserID(),
+				},
+				"Coupons": &graphql.Field{
+					Type:        graphql.NewList(CouponType),
+					Description: "Get all coupons",
+					Resolve:     s.couponResolver.GetAllCoupons(),
+				},
+			},
+		}),
 		Mutation: graphql.NewObject(graphql.ObjectConfig{
-			Name:		"CouponSetter",
+			Name:        "CouponSetter",
 			Description: "All query related to create or modify coupon data",
 			Fields: graphql.Fields{
 				"CreateCoupon": &graphql.Field{
-					Type: graphql.Boolean,
+					Type:        graphql.Boolean,
 					Description: "Create coupon",
 					Args: graphql.FieldConfigArgument{
 						"name": &graphql.ArgumentConfig{
