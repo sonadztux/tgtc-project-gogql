@@ -14,7 +14,7 @@ func NewResolver() *Resolver {
 
 func (r *Resolver) GetCouponByUserID() graphql.FieldResolveFn {
 	return func(p graphql.ResolveParams) (interface{}, error) {
-		id, _ := p.Args["user_id"].(int)
+		id, _ := p.Args["UserID"].(int)
 
 		return service.GetCouponByUserID(id)
 	}
