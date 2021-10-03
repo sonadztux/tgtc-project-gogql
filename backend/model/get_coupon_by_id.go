@@ -20,22 +20,28 @@ func GetCouponByUserID(userID int) (interface{}, error) {
 	// construct sql statement
 	query := `
 	SELECT
-		coupon_id,
-		coupon_name,
-		category,
-		image_url,
-		start_date,
-		end_date,
-		reward
+		coupons.ID,
+		coupons.Name,
+		coupons.Type,
+		coupons.Status,
+		coupons.Amount,
+		coupons.image_url,
+		coupons.usertier,
+		coupons.start_date,
+		coupons.expire,
 	FROM
 		coupons
+	JOIN
+		DetailCoupon
+	ON
+		DetailCoupon.CouponID = coupons.ID
 	WHERE
-		coupon_id = $1
+		DetailCoupon.UserID = $1
 	`
 
 	// actual query process
 	row = db.QueryRow(query, userID)
-	err = row.Scan(&c.CouponID, &c.Name, &c.Category, &c.ImageURL, &c.StartDate, &c.EndDate, &c.Reward)
+	err = row.Scan(&c.ID, &c.Name, &c.Type, &c.ImageURL, &c.StartDate, &c.ExpireDate, &c.Amount, &c.Tier, &c.Status)
 	if err != nil && err != sql.ErrNoRows {
 		return c, err
 	}

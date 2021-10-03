@@ -26,7 +26,7 @@ func (s *SchemaWrapper) Init() error {
 					Type:        CouponType,
 					Description: "Get coupon by user ID",
 					Args: graphql.FieldConfigArgument{
-						"coupon_id": &graphql.ArgumentConfig{
+						"UserID": &graphql.ArgumentConfig{
 							Type: graphql.NewNonNull(graphql.Int),
 						},
 					},

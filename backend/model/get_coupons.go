@@ -17,13 +17,15 @@ func GetAllCoupons() (interface{}, error) {
 	// construct sql statement
 	query := `
 	SELECT
-		coupon_id,
-		coupon_name,
-		category,
-		image_url,
-		start_date,
-		end_date,
-		reward
+		coupons.ID,
+		coupons.Name,
+		coupons.Type,
+		coupons.Status,
+		coupons.Amount,
+		coupons.image_url,
+		coupons.usertier,
+		coupons.start_date,
+		coupons.expire
 	FROM
 		coupons
 	`
@@ -40,7 +42,7 @@ func GetAllCoupons() (interface{}, error) {
 		var (
 			c views.Coupon
 		)
-		err = rows.Scan(&c.CouponID, &c.Name, &c.Category, &c.ImageURL, &c.StartDate, &c.EndDate, &c.Reward)
+		err = rows.Scan(&c.ID, &c.Name, &c.Type, &c.ImageURL, &c.StartDate, &c.ExpireDate, &c.Amount, &c.Tier, &c.Status)
 		if err != nil {
 			return nil, err
 		}
