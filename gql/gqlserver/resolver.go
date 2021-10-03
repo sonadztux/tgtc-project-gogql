@@ -12,12 +12,19 @@ func NewResolver() *Resolver {
 	return &Resolver{}
 }
 
-// func (r *Resolver) AllCoupons() graphql.FieldResolveFn {
-// 	return func(c graphql.ResolveParams) (interface{}, error) {
-// 		id, _ := c.Args["id"].(int)
-// 		return service.GetAllCoupons(id)
-// 	}
-// }
+func (r *Resolver) GetCouponByUserID() graphql.FieldResolveFn {
+	return func(p graphql.ResolveParams) (interface{}, error) {
+		id, _ := p.Args["user_id"].(int)
+
+		return service.GetCouponByUserID(id)
+	}
+}
+
+func (r *Resolver) GetAllCoupons() graphql.FieldResolveFn {
+	return func(p graphql.ResolveParams) (interface{}, error) {
+		return service.GetAllCoupons()
+	}
+}
 
 func (r *Resolver) CreateCoupon() graphql.FieldResolveFn {
 	return func(c graphql.ResolveParams) (interface{}, error) {

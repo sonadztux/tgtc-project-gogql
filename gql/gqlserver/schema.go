@@ -18,6 +18,28 @@ func (s *SchemaWrapper) WithCouponResolver(coupon *Resolver) *SchemaWrapper {
 
 func (s *SchemaWrapper) Init() error {
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
+		Query: graphql.NewObject(graphql.ObjectConfig{
+			Name:        "CouponsGetter",
+			Description: "All query related to getting coupon data",
+			Fields: graphql.Fields{
+				"CouponUser": &graphql.Field{
+					Type:        CouponType,
+					Description: "Get coupon by user ID",
+					Args: graphql.FieldConfigArgument{
+						"UserID": &graphql.ArgumentConfig{
+							Type: graphql.NewNonNull(graphql.Int),
+						},
+					},
+					Resolve: s.couponResolver.GetCouponByUserID(),
+				},
+				"Coupons": &graphql.Field{
+					Type:        graphql.NewList(CouponType),
+					Description: "Get all coupons",
+					Resolve:     s.couponResolver.GetAllCoupons(),
+				},
+			},
+		}),
+		
 		Mutation: graphql.NewObject(graphql.ObjectConfig{
 			Name:		"CouponSetter",
 			Description: "All query related to create or modify coupon data",
@@ -30,10 +52,10 @@ func (s *SchemaWrapper) Init() error {
 							Type: graphql.NewNonNull(graphql.String),
 						},
 						"type": &graphql.ArgumentConfig{
-							Type: graphql.EnumValueType,
+							Type: graphql.String,
 						},
 						"status": &graphql.ArgumentConfig{
-							Type: graphql.EnumValueType,
+							Type: graphql.String,
 						},
 						"amount": &graphql.ArgumentConfig{
 							Type: graphql.Float,
@@ -42,13 +64,13 @@ func (s *SchemaWrapper) Init() error {
 							Type: graphql.String,
 						},
 						"usertier": &graphql.ArgumentConfig{
-							Type: graphql.EnumValueType,
+							Type: graphql.String,
 						},
 						"start_date": &graphql.ArgumentConfig{
-							Type: graphql.DateTime,
+							Type: graphql.String,
 						},
 						"expire_date": &graphql.ArgumentConfig{
-							Type: graphql.DateTime,
+							Type: graphql.String,
 						},
 					},
 				},

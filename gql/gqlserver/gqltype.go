@@ -14,10 +14,10 @@ var CouponType = graphql.NewObject(
 				Type: graphql.String,
 			},
 			"type": &graphql.Field{
-				Type: graphql.EnumValueType,
+				Type: graphql.String,
 			},
 			"status": &graphql.Field{
-				Type: graphql.EnumValueType,
+				Type: graphql.String,
 			},
 			"amount": &graphql.Field{
 				Type: graphql.Float,
@@ -26,13 +26,13 @@ var CouponType = graphql.NewObject(
 				Type: graphql.String,
 			},
 			"usertier": &graphql.Field{
-				Type: graphql.EnumValueType,
+				Type: graphql.String,
 			},
 			"start_date": &graphql.Field{
-				Type: graphql.DateTime,
+				Type: graphql.String,
 			},
 			"expire_date": &graphql.Field{
-				Type: graphql.DateTime,
+				Type: graphql.String,
 			},
 		},
 	},
