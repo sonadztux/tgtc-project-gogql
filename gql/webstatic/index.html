@@ -86,23 +86,34 @@
 #       Run Query:  Ctrl-Enter (or press the play button above)
 #   Auto Complete:  Ctrl-Space (or just start typing)
 
-query getQuery {
-  allCoupons(status: ACTIVE, type: CASHBACK, userTier: SILVER) {
+query getAllCoupons {
+  Coupons {
     id
     name
     type
-    amount
-    description
-    userTier
     status
+    amount
+    image_url
+    usertier
+    start_date
+    expire_date
   }
 }
 
-mutation updateQuery {
-  CreateProduct(
-    product_name: "test"
-  )
+query getCouponByUserID {
+  CouponUser(UserID){
+    id
+    name
+    type
+    status
+    amount
+    image_url
+    usertier
+    start_date
+    expire_date
+  }
 }
+
 `
             }),
             document.getElementById('graphiql'),

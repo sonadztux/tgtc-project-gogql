@@ -73,6 +73,7 @@ func (s *SchemaWrapper) Init() error {
 							Type: graphql.String,
 						},
 					},
+					Resolve: s.couponResolver.CreateCoupon(),
 				},
 			},
 		}),
