@@ -1,0 +1,1 @@
+CREATE TABLE DetailCoupon (UserID int, CouponID int, FOREIGN KEY(UserID) REFERENCES "User"("ID"), FOREIGN KEY(CouponID) REFERENCES Coupon(ID));
